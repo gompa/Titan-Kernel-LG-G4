@@ -31,6 +31,10 @@
 #include "mdss_livedisplay.h"
 
 #include <soc/qcom/lge/board_lge.h>
+#ifdef CONFIG_WAKE_GESTURES
+#include <linux/wake_gestures.h>
+#endif
+
 #define XO_CLK_RATE	19200000
 
 #if IS_ENABLED(CONFIG_LGE_DISPLAY_POWER_SEQUENCE)
@@ -168,9 +172,7 @@ static int mdss_dsi_panel_power_off(struct mdss_panel_data *pdata)
 {
 	int ret = 0;
 	struct mdss_dsi_ctrl_pdata *ctrl_pdata = NULL;
-#if !IS_ENABLED(CONFIG_LGE_DISPLAY_POWER_SEQUENCE)
 	int i = 0;
-#endif
 
 	if (pdata == NULL) {
 		pr_err("%s: Invalid input data\n", __func__);
@@ -198,23 +200,30 @@ static int mdss_dsi_panel_power_off(struct mdss_panel_data *pdata)
 		/* Add delay recommended by panel specs */
 		udelay(2000);
 	}
+
 #if IS_ENABLED(CONFIG_LGE_DISPLAY_POWER_SEQUENCE)
 	if (lge_mdss_dsi.lge_msm_dss_enable_vreg)
 		ret = lge_mdss_dsi.lge_msm_dss_enable_vreg(ctrl_pdata, 0);
-#else
-	for (i = DSI_MAX_PM - 1; i >= 0; i--) {
-		/*
-		 * Core power module will be disabled when the
-		 * clocks are disabled
-		 */
-		if (DSI_CORE_PM == i)
-			continue;
-		ret = msm_dss_enable_vreg(
-			ctrl_pdata->power_data[i].vreg_config,
-			ctrl_pdata->power_data[i].num_vreg, 0);
-		if (ret)
-			pr_err("%s: failed to disable vregs for %s\n",
-				__func__, __mdss_dsi_pm_name(i));
+#endif
+
+#ifdef CONFIG_WAKE_GESTURES
+	if (!gestures_enabled) {
+#endif
+		for (i = DSI_MAX_PM - 1; i >= 0; i--) {
+			/*
+			 * Core power module will be disabled when the
+			 * clocks are disabled
+			 */
+			if (DSI_CORE_PM == i)
+				continue;
+			ret = msm_dss_enable_vreg(
+				ctrl_pdata->power_data[i].vreg_config,
+				ctrl_pdata->power_data[i].num_vreg, 0);
+			if (ret)
+				pr_err("%s: failed to disable vregs for %s\n",
+					__func__, __mdss_dsi_pm_name(i));
+		}
+#ifdef CONFIG_WAKE_GESTURES
 	}
 #endif
 

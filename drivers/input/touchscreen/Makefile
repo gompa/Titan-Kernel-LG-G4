@@ -82,7 +82,7 @@ obj-$(CONFIG_TOUCHSCREEN_SYNAPTICS_I2C_RMI4) += touch_synaptics_ds5_fw_upgrade.o
 obj-$(CONFIG_TOUCHSCREEN_SYNAPTICS_I2C_RMI4) += touch_synaptics_proximity.o
 obj-$(CONFIG_TOUCHSCREEN_SYNAPTICS_I2C_RMI4) += touch_synaptics_rmi_dev.o
 obj-$(CONFIG_TOUCHSCREEN_SYNAPTICS_I2C_RMI4) += DS5/
-#obj-$(CONFIG_TOUCHSCREEN_SYNAPTICS_I2C_RMI4)		+= synaptics_i2c_rmi4.o
+obj-$(CONFIG_TOUCHSCREEN_SYNAPTICS_I2C_RMI4) += synaptics_i2c_rmi4.o
 #obj-$(CONFIG_TOUCHSCREEN_SYNAPTICS_DSX_RMI4_DEV)	+= synaptics_rmi_dev.o
 #obj-$(CONFIG_TOUCHSCREEN_SYNAPTICS_DSX_FW_UPDATE) 	+= synaptics_fw_update.o
 obj-$(CONFIG_TOUCHSCREEN_GT9XX)		+= gt9xx/
@@ -93,5 +93,6 @@ obj-$(CONFIG_TOUCHSCREEN_LGE_SIC)	+= touch_sic.o
 obj-$(CONFIG_TOUCHSCREEN_LGE_SIC)	+= touch_sic_abt.o
 obj-$(CONFIG_TOUCHSCREEN_LGE_SIC_SPI)	+= pplus/
 
-obj-$(CONFIG_LGE_TOUCH_CORE)        += lge/
-obj-$(CONFIG_LGE_TOUCH_CORE_MTK)    += lge/
+#obj-$(CONFIG_LGE_TOUCH_CORE)        += lge/
+#obj-$(CONFIG_LGE_TOUCH_CORE_MTK)    += lge/
+obj-$(CONFIG_WAKE_GESTURES)		+= wake_gestures.o
