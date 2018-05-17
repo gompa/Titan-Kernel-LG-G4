@@ -53,6 +53,8 @@ struct msm_serial_hs_platform_data {
 	bool obs;
 };
 
+typedef void (*wake_peer_fn)(struct uart_port *);
+
 /* return true when tx is empty */
 unsigned int msm_hs_tx_empty(struct uart_port *uport);
 void msm_hs_request_clock_off(struct uart_port *uport);
@@ -73,4 +75,5 @@ struct uart_port * msm_hs_get_bt_uport(unsigned int line);
 int msm_hs_get_pm_state_active(struct uart_port *uport);
 //BT_E : [CONBT-966] Fix to HCI command timeout
 //[P1_BRINGUP_E]
+void msm_hs_set_wake_peer(struct uart_port *uport, wake_peer_fn wake_peer);
 #endif

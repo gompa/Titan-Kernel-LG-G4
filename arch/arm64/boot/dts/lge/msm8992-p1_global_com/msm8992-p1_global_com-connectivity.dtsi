@@ -42,9 +42,13 @@
 /*[P1_BRINGUP_E] Add Pin CTRL */
 
 	bt_sleep {
-		compatible = "bcm,bluesleep";
-		bt_host_wake = <&msm_gpio 95 0>;
-		bt_ext_wake = <&msm_gpio 105 0>;
+                compatible = "goog,nitrous";
+                uart-port = <0>;
+                power-gpio = <&msm_gpio 25 0>; /* questionable as it might require msm_gpio instead*/
+                host-wake-gpio = <&msm_gpio 95 0>;
+                host-wake-polarity = <0>;
+                dev-wake-gpio = <&msm_gpio 105 0>;
+                dev-wake-polarity = <0>;
 		status = "ok";
 	};
 
