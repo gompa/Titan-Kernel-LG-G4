@@ -1134,11 +1134,13 @@ static int lpwg_control(struct synaptics_ts_data *ts, int mode)
 		}
 		if (is_product(ts, "PLG446", 6)
 				|| is_product(ts, "PLG468", 6)) {
-			if (lpwg_by_lcd_notifier)
+			if (lpwg_by_lcd_notifier) {
 				TOUCH_I(
-						"Partial LPWG doens't work after LPWG ON command\n");
-			else
+						"Partial LPWG doesn't work after LPWG ON command for PLG446, PLG448\n");
+				tci_control(ts, PARTIAL_LPWG_ON, 0);
+			} else {
 				tci_control(ts, PARTIAL_LPWG_ON, 1);
+			}
 		}
 		break;
 
@@ -6815,11 +6817,12 @@ enum error_type synaptics_ts_get_data(struct i2c_client *client,
 					1, &status), error);
 
 		if (ts->lpwg_ctrl.has_request_reset_reg) {
+
 			DO_SAFE(synaptics_ts_page_data_read(client,
 				LPWG_PAGE, ts->f51_reg.request_reset_reg,
 				1, &lpwg_fail), error);
 			if ((lpwg_fail & 0x01) && (!ts->lpwg_ctrl.screen)) {
-				TOUCH_I("%s: LPWG Malfuction (lpwg_state 0x%02x) - goto reset\n",
+				TOUCH_I("%s: LPWG Malfunction (lpwg_state 0x%02x) - goto reset\n",
 					__func__, status);
 				return ERROR_IN_LPWG;
 			}
