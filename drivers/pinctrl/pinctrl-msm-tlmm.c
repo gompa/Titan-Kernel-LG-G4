@@ -776,6 +776,9 @@ static int msm_tlmm_gp_show_resume_irq(struct msm_tlmm_irq_chip *ic)
 
 static irqreturn_t msm_tlmm_gp_handle_irq(int irq, struct msm_tlmm_irq_chip *ic)
 {
+#ifdef CONFIG_DEBUG_TOUCH_VV
+	printk(KERN_WARNING "TOUCH DEBUG: msm_tlmm_gp_handle_irq got called by: %pS\n", __builtin_return_address(0));
+#endif
 	unsigned long i;
 	unsigned int virq = 0;
 	struct irq_chip *chip;
@@ -1058,6 +1061,9 @@ static int msm_tlmm_gp_irq_init(int irq, struct msm_pintype_info *pinfo,
 
 static irqreturn_t msm_tlmm_handle_irq(int irq, void *data)
 {
+#ifdef CONFIG_DEBUG_TOUCH_VV
+	printk(KERN_WARNING "TOUCH DEBUG: msm_tlmm_handle_irq got called by: %pS\n", __builtin_return_address(0));
+#endif
 	int i, num_pintypes;
 	struct msm_pintype_info *pintypes, *pintype;
 	struct msm_tlmm_irq_chip *ic;

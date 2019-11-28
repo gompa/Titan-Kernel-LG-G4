@@ -563,6 +563,9 @@ int lgd_qhd_command_msm_dss_enable_vreg(struct mdss_dsi_ctrl_pdata *ctrl_pdata, 
 
 int lgd_qhd_command_pre_mdss_dsi_panel_power_ctrl(struct mdss_panel_data *pdata, int enable)
 {
+#ifdef CONFIG_DEBUG_TOUCH
+	pr_err("TOUCH DEBUG: starting: %s\n", __func__);
+#endif
 	int ret = 0;
 	if(enable)
 	{
@@ -605,7 +608,12 @@ int lgd_qhd_command_pre_mdss_dsi_panel_power_ctrl(struct mdss_panel_data *pdata,
 
 int jdi_qhd_command_pre_mdss_dsi_panel_power_ctrl(struct mdss_panel_data *pdata, int enable)
 {
-	pr_err("LPWG starting: %s\n", __func__);
+#ifdef CONFIG_DEBUG_TOUCH
+	pr_err("TOUCH DEBUG: starting: %s\n", __func__);
+#endif
+#ifdef CONFIG_DEBUG_TOUCH_VV
+	pr_err("TOUCH DEBUG: jdi_qhd_command_pre_mdss_dsi_panel_power_ctrl got called by: %pS\n", __builtin_return_address(0));
+#endif
 	int ret=0;
 	if(enable)
 	{

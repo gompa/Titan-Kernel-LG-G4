@@ -311,6 +311,9 @@ static int irq_expand_nr_irqs(unsigned int nr)
 
 int generic_handle_irq(unsigned int irq)
 {
+#ifdef CONFIG_DEBUG_TOUCH_VVV
+	printk(KERN_WARNING "TOUCH DEBUG: generic_handle_irq got called by: %pS\n", __builtin_return_address(0));
+#endif
 	struct irq_desc *desc = irq_to_desc(irq);
 
 	if (!desc)

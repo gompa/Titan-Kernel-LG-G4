@@ -133,6 +133,9 @@ static void irq_wake_thread(struct irq_desc *desc, struct irqaction *action)
 irqreturn_t
 handle_irq_event_percpu(struct irq_desc *desc, struct irqaction *action)
 {
+#ifdef CONFIG_DEBUG_TOUCH_VVV
+	printk(KERN_WARNING "TOUCH DEBUG: handle_irq_event_percpu got called by: %pS\n", __builtin_return_address(0));
+#endif
 	irqreturn_t retval = IRQ_NONE;
 	unsigned int flags = 0, irq = desc->irq_data.irq;
 
@@ -182,6 +185,9 @@ handle_irq_event_percpu(struct irq_desc *desc, struct irqaction *action)
 
 irqreturn_t handle_irq_event(struct irq_desc *desc)
 {
+#ifdef CONFIG_DEBUG_TOUCH_VVV
+	printk(KERN_WARNING "TOUCH DEBUG: handle_irq_event got called by: %pS\n", __builtin_return_address(0));
+#endif
 	struct irqaction *action = desc->action;
 	irqreturn_t ret;
 

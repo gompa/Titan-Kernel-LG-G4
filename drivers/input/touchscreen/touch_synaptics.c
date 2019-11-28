@@ -6756,6 +6756,9 @@ enum error_type synaptics_ts_get_data(struct i2c_client *client,
 		struct touch_data *curr_data,
 		const struct touch_data *prev_data)
 {
+#ifdef CONFIG_DEBUG_TOUCH_VV
+	TOUCH_D(DEBUG_BASE_INFO, "TOUCH DEBUG: synaptics_ts_get_data called by: %pS\n", __builtin_return_address(0));
+#endif
 	struct synaptics_ts_data *ts =
 		(struct synaptics_ts_data *)get_touch_handle(client);
 	struct finger_data *finger = NULL;
@@ -6783,6 +6786,10 @@ enum error_type synaptics_ts_get_data(struct i2c_client *client,
 					__func__, __LINE__);
 			return IGNORE_EVENT;
 		}
+        } else {
+#ifdef CONFIG_DEBUG_TOUCH_VV
+	    TOUCH_D(DEBUG_BASE_INFO, "TOUCH DEBUG: not is_init (%s)\n", __func__);
+#endif
 	}
 
 	curr_data->total_num = 0;

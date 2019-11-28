@@ -1090,4 +1090,22 @@ config INPUT_MT_WRAPPER
 
 	  If unsure, say N.
 
+config DEBUG_TOUCH
+        default n
+	bool "Debug Touch"
+	help
+	  Say Y here to enable debug output for several touch functions.
+
+	  If unsure, say N.
+
+config DEBUG_TOUCH_VV
+        default n
+	bool "Debug Touch - Very Verbose"
+        select LGE_PM_DEBUG
+        select DEBUG_TOUCH
+	help
+	  Say Y here to enable massive debug output for several touch functions.
+
+	  If unsure, say N.
+
 endif

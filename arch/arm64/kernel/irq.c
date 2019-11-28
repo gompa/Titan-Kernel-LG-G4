@@ -60,6 +60,9 @@ void handle_IRQ(unsigned int irq, struct pt_regs *regs)
 		pr_warn_ratelimited("Bad IRQ%u\n", irq);
 		ack_bad_irq(irq);
 	} else {
+#ifdef CONFIG_DEBUG_TOUCH_VVV
+	        printk(KERN_WARNING "TOUCH DEBUG: handle_IRQ got called by: %pS\n", __builtin_return_address(0));
+#endif
 		generic_handle_irq(irq);
 	}
 

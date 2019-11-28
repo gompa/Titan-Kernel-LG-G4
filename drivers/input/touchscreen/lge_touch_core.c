@@ -2227,6 +2227,9 @@ error:
  */
 irqreturn_t touch_irq_handler(int irq, void *dev_id)
 {
+#ifdef CONFIG_DEBUG_TOUCH_VV
+	TOUCH_D(DEBUG_BASE_INFO, "TOUCH DEBUG: touch_irq_handler called by: %pS\n", __builtin_return_address(0));
+#endif
 	struct lge_touch_data *ts = (struct lge_touch_data *)dev_id;
 
 	TOUCH_TRACE();
@@ -2239,6 +2242,9 @@ irqreturn_t touch_irq_handler(int irq, void *dev_id)
 		return IRQ_HANDLED;
 	}
 
+#ifdef CONFIG_DEBUG_TOUCH_VV
+	TOUCH_D(DEBUG_BASE_INFO, "TOUCH DEBUG: LPWG touch_irq_handler will IRQ_WAKE_THREAD (%s)\n",__func__);
+#endif
 	return IRQ_WAKE_THREAD;
 }
 
@@ -4329,7 +4335,9 @@ static int touch_probe(struct i2c_client *client,
 		ret = -ENOMEM;
 		goto err_ic_init;
 	}
-
+#ifdef CONFIG_DEBUG_TOUCH
+	TOUCH_D(DEBUG_BASE_INFO, "TOUCH DEBUG: will call touch_irq_handler (%s)\n",__func__);
+#endif
 	DO_SAFE(ret = request_threaded_irq(ts->client->irq,
 				touch_irq_handler, touch_thread_irq_handler,
 				ts->pdata->role->irqflags | IRQF_ONESHOT,

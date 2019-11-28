@@ -4467,3 +4467,7 @@ CONFIG_OID_REGISTRY=y
 CONFIG_QMI_ENCDEC=y
 # CONFIG_QMI_ENCDEC_DEBUG is not set
 # CONFIG_STRICT_MEMORY_RWX is not set
+
+# G4 special debug (mainly for tap2wake/dt2w)
+# CONFIG_DEBUG_TOUCH is not set
+# CONFIG_DEBUG_TOUCH_VV is not set

@@ -457,6 +457,9 @@ static inline void preflow_handler(struct irq_desc *desc) { }
 bool
 handle_fasteoi_irq(unsigned int irq, struct irq_desc *desc)
 {
+#ifdef CONFIG_DEBUG_TOUCH_VVV
+	printk(KERN_WARNING "TOUCH DEBUG: handle_fasteoi_irq got called by: %pS\n", __builtin_return_address(0));
+#endif
 	bool handled = false;
 
 	raw_spin_lock(&desc->lock);
@@ -520,6 +523,9 @@ out:
 bool
 handle_edge_irq(unsigned int irq, struct irq_desc *desc)
 {
+#ifdef CONFIG_DEBUG_TOUCH_VVV
+	printk(KERN_WARNING "TOUCH DEBUG: handle_edge_irq got called by: %pS\n", __builtin_return_address(0));
+#endif
 	bool handled = false;
 
 	raw_spin_lock(&desc->lock);

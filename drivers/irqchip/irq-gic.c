@@ -478,6 +478,9 @@ static int gic_set_wake(struct irq_data *d, unsigned int on)
 
 static asmlinkage void __exception_irq_entry gic_handle_irq(struct pt_regs *regs)
 {
+#ifdef CONFIG_DEBUG_TOUCH_VVV
+	        printk(KERN_WARNING "TOUCH DEBUG: gic_handle_irq got called by: %pS\n", __builtin_return_address(0));
+#endif
 	u32 irqstat, irqnr;
 	struct gic_chip_data *gic = &gic_data[0];
 	void __iomem *cpu_base = gic_data_cpu_base(gic);

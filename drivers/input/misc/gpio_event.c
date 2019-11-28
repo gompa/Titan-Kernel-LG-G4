@@ -35,6 +35,9 @@ static int gpio_input_event(
 	int tmp_ret;
 	struct gpio_event_info **ii;
 	struct gpio_event *ip = input_get_drvdata(dev);
+#ifdef CONFIG_DEBUG_TOUCH_VVV
+	pr_err("TOUCH DEBUG: gpio_input_event: device %p\n", dev);
+#endif
 
 	for (devnr = 0; devnr < ip->input_devs->count; devnr++)
 		if (ip->input_devs->dev[devnr] == dev)
