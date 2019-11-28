@@ -605,6 +605,7 @@ int lgd_qhd_command_pre_mdss_dsi_panel_power_ctrl(struct mdss_panel_data *pdata,
 
 int jdi_qhd_command_pre_mdss_dsi_panel_power_ctrl(struct mdss_panel_data *pdata, int enable)
 {
+	pr_err("LPWG starting: %s\n", __func__);
 	int ret=0;
 	if(enable)
 	{
@@ -616,20 +617,19 @@ int jdi_qhd_command_pre_mdss_dsi_panel_power_ctrl(struct mdss_panel_data *pdata,
 		}
 		ctrl_pdata = container_of(pdata, struct mdss_dsi_ctrl_pdata,
 				panel_data);
-		if (!ctrl_pdata->ndx) {
-			if (!ctrl_pdata->ndx)
-				if (ctrl_pdata->lge_pan_data->touch_driver_registered) {
-					if(jdi_deep_sleep == 0) {
-						touch_notifier_call_chain(
-								LCD_EVENT_TOUCH_LPWG_OFF, NULL);
-						mdelay(30);
-					}
-				}
+		if (ctrl_pdata->lge_pan_data->touch_driver_registered) {
+			if(jdi_deep_sleep == 0) {
+				touch_notifier_call_chain(
+					LCD_EVENT_TOUCH_LPWG_OFF, NULL);
+				mdelay(30);
+			}
 			jdi_deep_sleep = 0;
+		} else {
+			pr_err("LPWG touch_driver isn't registered\n");
 		}
 
 	}else{
-
+	    pr_err("LPWG not enable (%s)\n", __func__);
 	}
 
 	return ret;
