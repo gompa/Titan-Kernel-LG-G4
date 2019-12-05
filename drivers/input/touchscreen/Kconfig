@@ -1108,9 +1108,4 @@ config DEBUG_TOUCH_VV
 
 	  If unsure, say N.
 
-config WAKE_GESTURES
-        bool "Wake Gestures"
-        help
-          Say Y here to enable swipe2wake, sleep2wake and dt2wake
-
 endif
