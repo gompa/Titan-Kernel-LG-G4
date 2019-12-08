@@ -775,9 +775,7 @@ static int snd_compr_set_next_track_param(struct snd_compr_stream *stream,
 		return -EFAULT;
 
 	retval = stream->ops->set_next_track_param(stream, &codec_options);
-	if (retval != 0)
-		return retval;
-	return 0;
+	return retval;
 }
 
 static int snd_compress_simple_ioctls(struct file *file,
