@@ -357,8 +357,8 @@ void kgsl_pwrctrl_set_thermal_cycle(struct kgsl_pwrctrl *pwr,
  * level at the current level.  Set the new GPU frequency.
  */
 
-int gpu_power_level;
-int gpu_max_power_level;
+// int gpu_power_level;
+// int gpu_max_power_level;
 
 void kgsl_pwrctrl_pwrlevel_change(struct kgsl_device *device,
 				unsigned int new_level)
