@@ -1762,9 +1762,9 @@ int __cpufreq_driver_target(struct cpufreq_policy *policy,
 	if (cpufreq_disabled())
 		return -ENODEV;
 
-    if (state_suspended && target_freq > SCREEN_OFF_CEILING) {
-		target_freq = SCREEN_OFF_CEILING;
-	}
+//     if (state_suspended && target_freq > SCREEN_OFF_CEILING) {
+// 		target_freq = SCREEN_OFF_CEILING;
+// 	}
 	/* Make sure that target_freq is within supported range */
 	if (target_freq > policy->max)
 		target_freq = policy->max;
